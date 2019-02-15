@@ -6,6 +6,7 @@ require_once 'model/db-functions.php';
 
 //Start session AFTER autoload
 session_start();
+//session_destroy();
 
 //Create an instance of the Base class
 $f3 = Base::instance();
@@ -28,8 +29,9 @@ $f3->route('GET /', function($f3) {
 });
 
 //Define a route to view a student summary
-$f3->route('GET /summary', function() {
+$f3->route('GET /summary/@sid', function($f3, $params) {
 
+    $sid = $params['sid'];
     //load a template
     $template = new Template();
     echo $template->render('views/view-student.html');
