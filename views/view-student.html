@@ -1,3 +1,15 @@
 <h3>Student added successfully!!</h3>
 
-{{ @student->toString() }}
+<!--{{ @student->toString() }}-->
+
+<p>{{ @student->getFirst() }} {{ @student->getLast()}}</p>
+<p>SID: {{ @student->getSid() }}</p>
+<p>GPA: {{ @student->getGpa() }}</p>
+<check if="{{ @student->getGpa() }} > 2.0">
+    <true>
+        <p>Passing</p>
+    </true>
+    <false>
+        <p>Failing</p>
+    </false>
+</check>
