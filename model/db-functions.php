@@ -1,6 +1,6 @@
 <?php
 
-require("/home/mprelesn/config.php");
+require("/home/edausgre/config.php");
 
 function connect()
 {
@@ -25,8 +25,6 @@ function getStudents()
 
     //2. prepare the statement
     $statement = $dbh->prepare($sql);
-
-    //3. bind parameters
 
     //4. execute the statement
     $statement->execute();
@@ -61,4 +59,28 @@ function addStudent($sid, $last, $first, $birthdate, $gpa, $advisor)
 
     //5. return the result
     return $success;
+}
+
+function getStudent($sid)
+{
+    global $dbh;
+
+    //1. define the query
+    $sql = "SELECT * FROM student where sid = :sid";
+
+    //2. prepare the statement
+    $statement = $dbh->prepare($sql);
+
+    //bind params
+    $statement->bindParam(':sid', $sid, PDO::PARAM_STR);
+
+    //4. execute the statement
+    $statement->execute();
+
+    //5. return the result
+    $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+    $student = new Student($sid, $result['last'], $result['first'], $result['birthdate'], $result['gpa'], $result['advisor']);
+
+    return $student;
 }
